@@ -1,8 +1,15 @@
 (function () {
-  var ALLOWED_ORIGIN = "https://newnewnewnewta.github.io/";
+  var ALLOWED_ORIGIN = "https://newnewnewnewtab.github.io/";
 
-  var currentOrigin = window.location.origin + "/";
-  if (currentOrigin === ALLOWED_ORIGIN) {
+  function isOnAllowedSite() {
+    try {
+      var topHref = window.top.location.href;
+      return topHref.indexOf(ALLOWED_ORIGIN) === 0;
+    } catch (e) {
+      return false;
+    }
+  }
+  if (isOnAllowedSite()) {
     return;
   }
   function showOverlay() {
@@ -11,7 +18,7 @@
     overlay.innerHTML =
       '<div class="domain-lock-card">' +
       '<div class="domain-lock-icon">🔒</div>' +
-      "<h1>This game was stolen</h1>" +
+      "<h1>This title was stolen</h1>" +
       "<p>This title is only available at:</p>" +
       '<a class="domain-lock-link" href="' +
       ALLOWED_ORIGIN +
