@@ -1,31 +1,17 @@
-/**
- * domain-lock.js
- * Shows a full-screen overlay if this game is not being served from
- * the official URL. Drop this file next to your game's other scripts
- * and include it near the top of your HTML, e.g.:
- *
- *   <script src="domain-lock.js"></script>
- *
- * Edit ALLOWED_ORIGIN below if your URL ever changes.
- */
-
 (function () {
-  var ALLOWED_ORIGIN = "https://newnewnewnewtab.github.io/";
+  var ALLOWED_ORIGIN = "https://newnewnewnewta.github.io/";
 
-  // Normalize for comparison: current origin + trailing slash
   var currentOrigin = window.location.origin + "/";
-
   if (currentOrigin === ALLOWED_ORIGIN) {
-    return; // Correct site — do nothing.
+    return;
   }
-
   function showOverlay() {
     var overlay = document.createElement("div");
     overlay.id = "domain-lock-overlay";
     overlay.innerHTML =
       '<div class="domain-lock-card">' +
       '<div class="domain-lock-icon">🔒</div>' +
-      "<h1>This game lives elsewhere</h1>" +
+      "<h1>This game was stolen</h1>" +
       "<p>This title is only available at:</p>" +
       '<a class="domain-lock-link" href="' +
       ALLOWED_ORIGIN +
@@ -36,7 +22,6 @@
       ALLOWED_ORIGIN +
       '" target="_top">Take me there →</a>' +
       "</div>";
-
     var style = document.createElement("style");
     style.textContent =
       "#domain-lock-overlay{" +
@@ -83,21 +68,17 @@
       "box-shadow:0 12px 26px rgba(91,124,255,0.45);" +
       "}" +
       ".domain-lock-button:active{transform:translateY(0);}";
-
     document.head.appendChild(style);
-
     function mount() {
       document.body.appendChild(overlay);
       document.body.style.overflow = "hidden";
     }
-
     if (document.body) {
       mount();
     } else {
       document.addEventListener("DOMContentLoaded", mount);
     }
   }
-
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", showOverlay);
   } else {
